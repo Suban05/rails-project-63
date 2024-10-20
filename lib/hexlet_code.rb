@@ -2,6 +2,7 @@
 
 require_relative "hexlet_code/version"
 
+# hexlet code
 module HexletCode
   class Error < StandardError; end
   autoload(:Tag, "hexlet_code/tag")
