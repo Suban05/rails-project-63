@@ -30,6 +30,17 @@ class TestHexletCodeTag < Minitest::Test
       "<label for=\"email\">Email</label>",
       HexletCode::Tag.build("label", for: "email") { "Email" }
     )
+    assert_equal(
+      "<a href=\"https://google.com\" class=\"nav-link\">Section</a>",
+      HexletCode::Tag.build("a", href: "https://google.com", class: "nav-link") { "Section" }
+    )
+  end
+
+  def test_builds_paired_tag_with_attributes_without_block
+    assert_equal(
+      "<a href=\"https://google.com\" class=\"nav-link\"></a>",
+      HexletCode::Tag.build("a", href: "https://google.com", class: "nav-link")
+    )
   end
 
   def test_builds_empty_paired_tag
