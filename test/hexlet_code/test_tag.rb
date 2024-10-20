@@ -36,6 +36,15 @@ class TestHexletCodeTag < Minitest::Test
     )
   end
 
+  def test_builds_form
+    assert_equal(
+      "<form class=\"flex\"><input type=\"submit\" value=\"Save\"></form>",
+      HexletCode::Tag.build("form", class: "flex") do
+        HexletCode::Tag.build("input", type: "submit", value: "Save")
+      end
+    )
+  end
+
   def test_builds_paired_tag_with_attributes_without_block
     assert_equal(
       "<a href=\"https://google.com\" class=\"nav-link\"></a>",
