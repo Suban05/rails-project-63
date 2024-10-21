@@ -3,7 +3,24 @@
 require "test_helper"
 
 class TestHexletCode < Minitest::Test
+  def setup
+    @user = Struct.new(:name, :job, keyword_init: true)
+  end
   def test_that_it_has_a_version_number
     refute_nil ::HexletCode::VERSION
+  end
+
+  def test_generates_form_without_attributes
+    user = @user.new name: 'rob'
+    form = HexletCode.form_for user do |f|
+    end
+    assert_equal("<form action=\"#\" method=\"post\"></form>", form)
+  end
+
+  def test_generates_form_with_attributes
+    user = @user.new name: 'rob'
+    form = HexletCode.form_for user, url: '/users' do |f|
+    end
+    assert_equal("<form action=\"/users\" method=\"post\"></form>", form)
   end
 end
