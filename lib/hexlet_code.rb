@@ -4,12 +4,15 @@ require_relative "hexlet_code/version"
 
 # hexlet code
 module HexletCode
+  autoload(:Tag, "hexlet_code/tag.rb")
+  autoload(:FormBuilder, "hexlet_code/form_builder.rb")
   class Error < StandardError; end
-  autoload(:Tag, "hexlet_code/tag")
 
-  def self.form_for(_object, options = {}, &block)
+  def self.form_for(object, options = {})
     action = options[:url] || "#"
     method = options[:method] || :post
-    Tag.build("form", action:, method:, &block)
+    Tag.build("form", action:, method:) do
+      yield(FormBuilder.new(object))
+    end
   end
 end
