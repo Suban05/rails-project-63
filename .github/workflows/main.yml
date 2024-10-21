@@ -28,7 +28,7 @@ jobs:
       run: make install
 
     - name: Run tests
-      run: make test
+      run: bundle exec rake test
 
     - name: Run Rubocop
       run: make lint
