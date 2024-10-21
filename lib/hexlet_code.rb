@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
 require_relative "hexlet_code/version"
+require_relative "hexlet_code/tag"
+require_relative "hexlet_code/form_builder"
 
 # hexlet code
 module HexletCode
-  autoload(:Tag, "hexlet_code/tag.rb")
-  autoload(:FormBuilder, "hexlet_code/form_builder.rb")
   class Error < StandardError; end
 
   def self.form_for(object, options = {})
