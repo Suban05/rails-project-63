@@ -18,11 +18,18 @@ class TestHexletCode < Minitest::Test
     assert_equal("<form action=\"#\" method=\"post\"></form>", form)
   end
 
-  def test_generates_form_with_attributes
+  def test_generates_form_with_url
     user = @user.new name: "rob"
     form = HexletCode.form_for user, url: "/users" do |f|
     end
     assert_equal("<form action=\"/users\" method=\"post\"></form>", form)
+  end
+
+  def test_generates_form_with_method
+    user = @user.new name: "rob"
+    form = HexletCode.form_for user, method: :get do |f|
+    end
+    assert_equal("<form action=\"#\" method=\"get\"></form>", form)
   end
 
   def test_generates_form_without_block
