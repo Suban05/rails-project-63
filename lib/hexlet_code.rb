@@ -6,4 +6,10 @@ require_relative "hexlet_code/version"
 module HexletCode
   class Error < StandardError; end
   autoload(:Tag, "hexlet_code/tag")
+
+  def self.form_for(_object, options = {}, &block)
+    action = options[:url] || "#"
+    method = options[:method] || :post
+    Tag.build("form", action:, method:, &block)
+  end
 end
