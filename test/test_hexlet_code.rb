@@ -5,6 +5,7 @@ require "test_helper"
 class TestHexletCode < Minitest::Test
   def setup
     @user = Struct.new(:name, :job, keyword_init: true)
+    @fixture = load_fixture(:hexlet_code)
   end
 
   def test_that_it_has_a_version_number
@@ -38,11 +39,7 @@ class TestHexletCode < Minitest::Test
       f.input :name
       f.input :job, as: :text
     end
-    assert_equal(
-      "<form action=\"#\" method=\"post\"><input name=\"name\" type=\"text\" value=\"rob\">" \
-      "<textarea name=\"job\" cols=\"20\" rows=\"40\">hexlet</textarea></form>",
-      form
-    )
+    assert_equal(@fixture["form_fields"], form)
   end
 
   def test_generates_form_fields_with_additional_attributes
@@ -51,11 +48,7 @@ class TestHexletCode < Minitest::Test
       f.input :name, class: "user-input"
       f.input :job
     end
-    assert_equal(
-      "<form action=\"#\" method=\"post\"><input name=\"name\" type=\"text\" value=\"rob\" class=\"user-input\">" \
-      "<input name=\"job\" type=\"text\" value=\"hexlet\"></form>",
-      form
-    )
+    assert_equal(@fixture["form_fields_with_additional_attrs"], form)
   end
 
   def test_overrides_default_attributes
@@ -63,10 +56,7 @@ class TestHexletCode < Minitest::Test
     form = HexletCode.form_for user do |f|
       f.input :job, as: :text, cols: 50, rows: 55
     end
-    assert_equal(
-      "<form action=\"#\" method=\"post\"><textarea name=\"job\" cols=\"50\" rows=\"55\">hexlet</textarea></form>",
-      form
-    )
+    assert_equal(@fixture["default_attributes"], form)
   end
 
   def test_error_when_object_field_does_not_exist
@@ -76,5 +66,25 @@ class TestHexletCode < Minitest::Test
         f.input :age
       end
     end
+  end
+
+  def test_generates_form_with_submit
+    user = @user.new job: "hexlet"
+    form = HexletCode.form_for user do |f|
+      f.input :name
+      f.input :job
+      f.submit
+    end
+    assert_equal(@fixture["form_with_submit"], form)
+  end
+
+  def test_generates_form_with_custom_submit
+    user = @user.new job: "hexlet"
+    form = HexletCode.form_for user do |f|
+      f.input :name
+      f.input :job
+      f.submit "Wow", class: "btn"
+    end
+    assert_equal(@fixture["form_with_custom_submit"], form)
   end
 end
