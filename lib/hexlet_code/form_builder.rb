@@ -3,9 +3,12 @@
 module HexletCode
   # Form builder
   class FormBuilder
-    def initialize(object)
+    attr_reader :form
+
+    def initialize(object, options = {})
       @object = object
-      @html = []
+      @options = options
+      @form = Form.new(options)
     end
 
     def input(name, options = {})
@@ -14,29 +17,24 @@ module HexletCode
       if options[:as] == :text
         textarea(name, value, options)
       else
-        add(Tag.build("input", { name:, type: options[:type] || :text, value: }.merge(options)))
+        form.append_item(:input, { name:, type: options[:type] || :text, value: }.merge(options))
       end
     end
 
     def submit(value = "Save", options = {})
-      add(Tag.build("input", { type: :submit, value: }.merge(options)))
+      form.append_item(:input, { type: :submit, value: }.merge(options))
     end
 
-    def label(input_name, body, options = {})
-      add(Tag.build("label", { for: input_name }.merge(options)) { body })
+    def label(input_name, body)
+      item = form.append_item(:label, { for: input_name })
+      item.body = FormItem.new(:plain_text, { content: body })
     end
 
     def textarea(name, body, options = {})
-      cols = options[:cols] || "20"
-      rows = options[:rows] || "40"
-      add(Tag.build("textarea", { name:, cols:, rows: }.merge(options.except(:as))) { body })
-    end
-
-    private
-
-    def add(row)
-      @html << row
-      @html.join
+      cols = options[:cols] || 20
+      rows = options[:rows] || 40
+      item = form.append_item(:textarea, { name:, cols:, rows: }.merge(options.except(:as)))
+      item.body = FormItem.new(:plain_text, { content: body })
     end
   end
 end

@@ -6,7 +6,7 @@ module HexletCode
     attr_accessor :name, :attr_line
 
     def self.build(name, attributes = {})
-      tag = new(name, attributes)
+      tag = new(name.to_s, attributes)
       if tag.unpaired?
         "<#{name}#{tag.attr_line}>"
       else
