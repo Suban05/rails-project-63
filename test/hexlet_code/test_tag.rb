@@ -14,7 +14,7 @@ class TestHexletCodeTag < Minitest::Test
     )
     assert_equal(
       "<input type=\"submit\" value=\"Save\">",
-      HexletCode::Tag.build("input", type: "submit", value: "Save")
+      HexletCode::Tag.build("input", type: :submit, value: "Save")
     )
   end
 
@@ -40,7 +40,7 @@ class TestHexletCodeTag < Minitest::Test
     assert_equal(
       "<form class=\"flex\"><input type=\"submit\" value=\"Save\"></form>",
       HexletCode::Tag.build("form", class: "flex") do
-        HexletCode::Tag.build("input", type: "submit", value: "Save")
+        HexletCode::Tag.build("input", type: :submit, value: "Save")
       end
     )
   end
