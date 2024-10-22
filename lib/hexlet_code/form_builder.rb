@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HexletCode
-  # form builder
+  # Form builder
   class FormBuilder
     def initialize(object)
       @object = object

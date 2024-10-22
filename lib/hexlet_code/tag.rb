@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module HexletCode
-  # tag
+  # Tag
   class Tag
     attr_accessor :name, :attr_line
 
