@@ -10,7 +10,7 @@ module HexletCode
 
     def render
       append_items
-      Tag.build("form", @form.options) do
+      Tag.build('form', @form.options) do
         @html.join
       end
     end

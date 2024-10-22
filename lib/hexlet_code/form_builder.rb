@@ -21,7 +21,7 @@ module HexletCode
       end
     end
 
-    def submit(value = "Save", options = {})
+    def submit(value = 'Save', options = {})
       form.append_item(:input, { type: :submit, value: }.merge(options))
     end
 

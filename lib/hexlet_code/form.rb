@@ -6,7 +6,7 @@ module HexletCode
     attr_reader :options, :items
 
     def initialize(options = {})
-      action = options[:url] || "#"
+      action = options[:url] || '#'
       method = options[:method] || :post
       @options = { action:, method: }.merge(options.except(:url))
       @items = []

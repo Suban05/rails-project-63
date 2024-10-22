@@ -10,7 +10,7 @@ module HexletCode
       if tag.unpaired?
         "<#{name}#{tag.attr_line}>"
       else
-        body = ""
+        body = ''
         body = yield if block_given?
         "<#{name}#{tag.attr_line}>#{body}</#{name}>"
       end
@@ -31,11 +31,11 @@ module HexletCode
     private
 
     def build_attr_line(attributes)
-      attr_pairs = attributes.any? ? [""] : []
+      attr_pairs = attributes.any? ? [''] : []
       attributes.each do |key, value|
         attr_pairs << "#{key}=\"#{value}\""
       end
-      attr_pairs.join(" ")
+      attr_pairs.join(' ')
     end
   end
 end
